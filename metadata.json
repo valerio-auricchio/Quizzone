@@ -1,0 +1,5 @@
+{
+  "name": "Databricks Cert Prep",
+  "description": "A practice exam application for Data Engineer Associate certification with randomization and error tracking statistics.",
+  "requestFramePermissions": []
+}
