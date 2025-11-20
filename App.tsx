@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { questions as initialQuestions } from './services/questionData';
 import { getStats, saveStat, clearStats } from './utils/stats';
+import { getSession, saveSession, restoreQuestionList } from './utils/session';
 import StatsModal from './components/StatsModal';
 import { 
   ChevronRight, 
@@ -10,24 +11,64 @@ import {
   Check, 
   X, 
   HelpCircle,
-  BookOpen 
+  BookOpen,
+  RotateCcw
 } from 'lucide-react';
 import { Question } from './types';
 
 function App() {
-  const [questionList, setQuestionList] = useState<Question[]>(initialQuestions);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  // Initialize state from LocalStorage if available
+  const [questionList, setQuestionList] = useState<Question[]>(() => {
+    const session = getSession();
+    if (session && session.questionOrder.length > 0) {
+      return restoreQuestionList(initialQuestions, session.questionOrder);
+    }
+    return initialQuestions;
+  });
+
+  const [currentIndex, setCurrentIndex] = useState(() => {
+    const session = getSession();
+    return session ? session.currentIndex : 0;
+  });
+
+  const [selectedOption, setSelectedOption] = useState<string | null>(() => {
+    const session = getSession();
+    return session ? session.selectedOption : null;
+  });
+
+  const [isSubmitted, setIsSubmitted] = useState(() => {
+    const session = getSession();
+    return session ? session.isSubmitted : false;
+  });
+
   const [stats, setStats] = useState(getStats());
   const [isStatsOpen, setIsStatsOpen] = useState(false);
 
-  const currentQuestion = questionList[currentIndex];
+  // Used to prevent saving on initial render before state creates
+  const isFirstRender = useRef(true);
+
+  const currentQuestion = questionList[currentIndex] || initialQuestions[0]; // Fallback protection
   const isCorrect = selectedOption === currentQuestion.correctAnswerId;
 
+  // Update stats when modal is opened/toggled
   useEffect(() => {
     setStats(getStats());
   }, [isSubmitted, isStatsOpen]);
+
+  // Persist Session whenever state changes
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    saveSession({
+      questionOrder: questionList.map(q => q.id),
+      currentIndex,
+      selectedOption,
+      isSubmitted
+    });
+  }, [questionList, currentIndex, selectedOption, isSubmitted]);
 
   const handleOptionSelect = (id: string) => {
     if (!isSubmitted) {
@@ -45,28 +86,43 @@ function App() {
 
   const handleNext = () => {
     if (currentIndex < questionList.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-      resetState();
+      const nextIndex = currentIndex + 1;
+      setCurrentIndex(nextIndex);
+      resetStateForNewQuestion();
       window.scrollTo(0, 0);
     }
   };
 
   const handlePrev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(prev => prev - 1);
-      resetState();
+      const prevIndex = currentIndex - 1;
+      setCurrentIndex(prevIndex);
+      // When going back, we actually want to reset the state for that question
+      // In a more complex app we might save state per question, but for drill mode,
+      // resetting allows re-attempting or just viewing blank. 
+      // *Design Choice*: For this app, we reset so user can re-read clean.
+      resetStateForNewQuestion();
       window.scrollTo(0, 0);
     }
   };
 
   const handleShuffle = () => {
-    const shuffled = [...initialQuestions].sort(() => Math.random() - 0.5);
-    setQuestionList(shuffled);
-    setCurrentIndex(0);
-    resetState();
+    if(confirm("This will randomize the question order and reset your current position. Continue?")) {
+      const shuffled = [...initialQuestions].sort(() => Math.random() - 0.5);
+      setQuestionList(shuffled);
+      setCurrentIndex(0);
+      resetStateForNewQuestion();
+    }
   };
+  
+  const handleRestart = () => {
+    if(confirm("Restart from Question 1? (Order will be preserved)")) {
+        setCurrentIndex(0);
+        resetStateForNewQuestion();
+    }
+  }
 
-  const resetState = () => {
+  const resetStateForNewQuestion = () => {
     setSelectedOption(null);
     setIsSubmitted(false);
   };
@@ -99,11 +155,13 @@ function App() {
     return `${baseStyle} border-slate-100 text-slate-400 opacity-60`;
   };
 
+  if (!currentQuestion) return <div className="p-10 text-center">Loading...</div>;
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center py-8 px-4 font-sans">
       
       {/* Header */}
-      <header className="w-full max-w-3xl flex justify-between items-center mb-8">
+      <header className="w-full max-w-3xl flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
             <BookOpen className="text-blue-600" />
@@ -113,15 +171,22 @@ function App() {
         </div>
         <div className="flex gap-2">
            <button 
+            onClick={handleRestart}
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
+            title="Restart"
+          >
+            <RotateCcw size={16} /> <span className="hidden sm:inline">Restart</span>
+          </button>
+           <button 
             onClick={handleShuffle}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
             title="Randomize Questions"
           >
             <Shuffle size={16} /> <span className="hidden sm:inline">Shuffle</span>
           </button>
           <button 
             onClick={() => setIsStatsOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
           >
             <BarChart3 size={16} /> <span className="hidden sm:inline">Stats</span>
           </button>
@@ -246,7 +311,7 @@ function App() {
       {/* Keyboard Shortcut Hint */}
       <div className="mt-8 text-slate-400 text-xs flex items-center gap-2">
         <HelpCircle size={14} />
-        <span>Pro Tip: Use statistics to review commonly missed questions.</span>
+        <span>Pro Tip: Use statistics to review commonly missed questions. Progress is saved automatically.</span>
       </div>
 
       <StatsModal 
