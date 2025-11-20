@@ -138,55 +138,55 @@ function App() {
     
     if (!isSubmitted) {
       if (selectedOption === optionId) {
-        return `${baseStyle} border-blue-600 bg-blue-50 text-blue-900 shadow-sm`;
+        return `${baseStyle} border-blue-500 bg-blue-900/20 text-blue-100 shadow-sm`;
       }
-      return `${baseStyle} border-slate-200 hover:border-blue-300 hover:bg-slate-50 text-slate-700`;
+      return `${baseStyle} border-slate-700 hover:border-blue-500/50 hover:bg-slate-800 text-slate-300`;
     }
 
     // Submitted state
     if (optionId === currentQuestion.correctAnswerId) {
-      return `${baseStyle} border-green-500 bg-green-50 text-green-900 shadow-sm`;
+      return `${baseStyle} border-green-500 bg-green-900/20 text-green-100 shadow-sm`;
     }
     
     if (selectedOption === optionId && !isCorrect) {
-      return `${baseStyle} border-red-500 bg-red-50 text-red-900 opacity-100`;
+      return `${baseStyle} border-red-500 bg-red-900/20 text-red-100 opacity-100`;
     }
 
-    return `${baseStyle} border-slate-100 text-slate-400 opacity-60`;
+    return `${baseStyle} border-slate-800 text-slate-500 opacity-50`;
   };
 
-  if (!currentQuestion) return <div className="p-10 text-center">Loading...</div>;
+  if (!currentQuestion) return <div className="p-10 text-center text-slate-400">Loading...</div>;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center py-8 px-4 font-sans">
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center py-8 px-4 font-sans text-slate-100">
       
       {/* Header */}
       <header className="w-full max-w-3xl flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-            <BookOpen className="text-blue-600" />
+          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+            <BookOpen className="text-blue-500" />
             Databricks Cert Prep
           </h1>
-          <p className="text-sm text-slate-500 mt-1">Data Engineer Associate Exam</p>
+          <p className="text-sm text-slate-400 mt-1">Data Engineer Associate Exam</p>
         </div>
         <div className="flex gap-2">
            <button 
             onClick={handleRestart}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-300 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 hover:text-white transition shadow-sm"
             title="Restart"
           >
             <RotateCcw size={16} /> <span className="hidden sm:inline">Restart</span>
           </button>
            <button 
             onClick={handleShuffle}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-300 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 hover:text-white transition shadow-sm"
             title="Randomize Questions"
           >
             <Shuffle size={16} /> <span className="hidden sm:inline">Shuffle</span>
           </button>
           <button 
             onClick={() => setIsStatsOpen(true)}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition shadow-sm"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-300 bg-slate-900 border border-slate-700 rounded-lg hover:bg-slate-800 hover:text-white transition shadow-sm"
           >
             <BarChart3 size={16} /> <span className="hidden sm:inline">Stats</span>
           </button>
@@ -194,12 +194,12 @@ function App() {
       </header>
 
       {/* Main Card */}
-      <main className="w-full max-w-3xl bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+      <main className="w-full max-w-3xl bg-slate-900 rounded-2xl shadow-xl border border-slate-800 overflow-hidden">
         
         {/* Progress Bar */}
-        <div className="w-full bg-slate-100 h-1.5">
+        <div className="w-full bg-slate-800 h-1.5">
           <div 
-            className="bg-blue-600 h-1.5 transition-all duration-500 ease-out" 
+            className="bg-blue-500 h-1.5 transition-all duration-500 ease-out" 
             style={{ width: `${((currentIndex + 1) / questionList.length) * 100}%` }}
           ></div>
         </div>
@@ -207,7 +207,7 @@ function App() {
         <div className="p-6 md:p-8">
           {/* Meta Info */}
           <div className="flex justify-between items-center mb-6">
-            <span className="bg-slate-100 text-slate-600 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            <span className="bg-slate-800 text-slate-300 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-slate-700">
               {currentQuestion.topic}
             </span>
             <span className="text-slate-400 text-sm font-medium">
@@ -216,13 +216,13 @@ function App() {
           </div>
 
           {/* Question Text */}
-          <h2 className="text-xl md:text-2xl font-semibold text-slate-800 mb-6 leading-relaxed">
+          <h2 className="text-xl md:text-2xl font-semibold text-white mb-6 leading-relaxed">
             {currentQuestion.questionText}
           </h2>
 
           {/* Code Snippet (Optional) */}
           {currentQuestion.codeSnippet && (
-            <pre className="bg-slate-900 text-slate-50 p-4 rounded-lg mb-8 overflow-x-auto text-sm font-mono shadow-inner">
+            <pre className="bg-black text-slate-300 p-4 rounded-lg mb-8 overflow-x-auto text-sm font-mono border border-slate-800">
               <code>{currentQuestion.codeSnippet}</code>
             </pre>
           )}
@@ -238,8 +238,8 @@ function App() {
               >
                 <div className={`
                   w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5
-                  ${!isSubmitted && selectedOption === opt.id ? 'border-blue-600 text-blue-600' : 'border-slate-300 text-slate-400'}
-                  ${isSubmitted && opt.id === currentQuestion.correctAnswerId ? 'border-green-600 bg-green-600 text-white border-transparent' : ''}
+                  ${!isSubmitted && selectedOption === opt.id ? 'border-blue-500 text-blue-400' : 'border-slate-600 text-slate-500'}
+                  ${isSubmitted && opt.id === currentQuestion.correctAnswerId ? 'border-green-500 bg-green-600 text-white border-transparent' : ''}
                   ${isSubmitted && selectedOption === opt.id && !isCorrect ? 'border-red-500 text-red-500' : ''}
                 `}>
                   {isSubmitted && opt.id === currentQuestion.correctAnswerId ? <Check size={12} /> : 
@@ -253,23 +253,23 @@ function App() {
 
           {/* Feedback Section */}
           {isSubmitted && (
-            <div className={`p-6 rounded-xl mb-8 animate-in fade-in slide-in-from-bottom-4 duration-300 ${isCorrect ? 'bg-green-50 border border-green-100' : 'bg-red-50 border border-red-100'}`}>
+            <div className={`p-6 rounded-xl mb-8 animate-in fade-in slide-in-from-bottom-4 duration-300 ${isCorrect ? 'bg-green-900/10 border border-green-900/30' : 'bg-red-900/10 border border-red-900/30'}`}>
               <div className="flex items-center gap-3 mb-3">
                 {isCorrect ? (
-                  <div className="bg-green-100 p-2 rounded-full text-green-600">
+                  <div className="bg-green-900/30 p-2 rounded-full text-green-400">
                     <Check size={20} />
                   </div>
                 ) : (
-                   <div className="bg-red-100 p-2 rounded-full text-red-600">
+                   <div className="bg-red-900/30 p-2 rounded-full text-red-400">
                     <X size={20} />
                   </div>
                 )}
-                <h3 className={`font-bold text-lg ${isCorrect ? 'text-green-800' : 'text-red-800'}`}>
+                <h3 className={`font-bold text-lg ${isCorrect ? 'text-green-400' : 'text-red-400'}`}>
                   {isCorrect ? 'Correct Answer!' : 'Incorrect'}
                 </h3>
               </div>
               <div className="pl-[3.25rem]">
-                <p className="text-slate-700 leading-relaxed">
+                <p className="text-slate-300 leading-relaxed">
                   <span className="font-semibold block text-sm text-slate-500 uppercase tracking-wide mb-1">Explanation</span>
                   {currentQuestion.explanation}
                 </p>
@@ -278,11 +278,11 @@ function App() {
           )}
 
           {/* Navigation */}
-          <div className="flex justify-between items-center pt-6 border-t border-slate-100">
+          <div className="flex justify-between items-center pt-6 border-t border-slate-800">
             <button
               onClick={handlePrev}
               disabled={currentIndex === 0}
-              className="flex items-center gap-2 px-5 py-2.5 text-slate-600 font-medium hover:text-blue-600 disabled:opacity-30 disabled:hover:text-slate-600 transition"
+              className="flex items-center gap-2 px-5 py-2.5 text-slate-400 font-medium hover:text-blue-400 disabled:opacity-30 disabled:hover:text-slate-400 transition"
             >
               <ChevronLeft size={18} /> Previous
             </button>
@@ -291,7 +291,7 @@ function App() {
               <button
                 onClick={handleSubmit}
                 disabled={!selectedOption}
-                className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-200 disabled:text-slate-400 text-white px-8 py-2.5 rounded-lg font-bold shadow-md shadow-blue-200 disabled:shadow-none transition-all transform active:scale-95"
+                className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-800 disabled:text-slate-600 text-white px-8 py-2.5 rounded-lg font-bold shadow-md shadow-blue-900/20 disabled:shadow-none transition-all transform active:scale-95"
               >
                 Submit Answer
               </button>
@@ -299,7 +299,7 @@ function App() {
               <button
                 onClick={handleNext}
                 disabled={currentIndex === questionList.length - 1}
-                className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-2.5 rounded-lg font-bold shadow-lg shadow-slate-200 transition-all flex items-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:shadow-none"
+                className="bg-white hover:bg-slate-200 text-slate-900 px-8 py-2.5 rounded-lg font-bold shadow-lg shadow-slate-900/50 transition-all flex items-center gap-2 transform active:scale-95 disabled:opacity-50 disabled:shadow-none"
               >
                 {currentIndex === questionList.length - 1 ? 'Finish' : 'Next Question'} <ChevronRight size={18} />
               </button>
@@ -309,7 +309,7 @@ function App() {
       </main>
 
       {/* Keyboard Shortcut Hint */}
-      <div className="mt-8 text-slate-400 text-xs flex items-center gap-2">
+      <div className="mt-8 text-slate-500 text-xs flex items-center gap-2">
         <HelpCircle size={14} />
         <span>Pro Tip: Use statistics to review commonly missed questions. Progress is saved automatically.</span>
       </div>
