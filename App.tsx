@@ -97,10 +97,6 @@ function App() {
     if (currentIndex > 0) {
       const prevIndex = currentIndex - 1;
       setCurrentIndex(prevIndex);
-      // When going back, we actually want to reset the state for that question
-      // In a more complex app we might save state per question, but for drill mode,
-      // resetting allows re-attempting or just viewing blank. 
-      // *Design Choice*: For this app, we reset so user can re-read clean.
       resetStateForNewQuestion();
       window.scrollTo(0, 0);
     }
@@ -227,6 +223,18 @@ function App() {
             <pre className="bg-black text-zinc-300 p-4 rounded-lg mb-8 overflow-x-auto text-sm font-mono border border-zinc-800 shadow-inner">
               <code>{currentQuestion.codeSnippet}</code>
             </pre>
+          )}
+
+          {/* Question Image (Optional) */}
+          {currentQuestion.image_url && (
+            <div className="mb-8 rounded-xl overflow-hidden border border-zinc-800 bg-black flex justify-center p-2">
+              <img 
+                src={currentQuestion.image_url} 
+                alt="Question diagram" 
+                className="max-h-[400px] object-contain w-auto rounded-lg"
+                loading="lazy"
+              />
+            </div>
           )}
 
           {/* Options Grid */}

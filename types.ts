@@ -3,6 +3,7 @@ export interface Question {
   topic: string;
   questionText: string;
   codeSnippet?: string;
+  image_url?: string;
   options: {
     id: string;
     text: string;
