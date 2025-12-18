@@ -15,7 +15,8 @@ import {
   BookOpen,
   RotateCcw,
   Filter,
-  Maximize2
+  Maximize2,
+  ImageOff
 } from 'lucide-react';
 import { Question } from './types';
 
@@ -30,7 +31,6 @@ function App() {
 
   const [selectedTopic, setSelectedTopic] = useState<string>("All Topics");
   
-  // Extract all unique topics
   const topics = useMemo(() => {
     const uniqueTopics = Array.from(new Set(initialQuestions.map(q => q.topic)));
     return ["All Topics", ...uniqueTopics.sort()];
@@ -59,17 +59,24 @@ function App() {
   const [stats, setStats] = useState(getStats());
   const [isStatsOpen, setIsStatsOpen] = useState(false);
   const [isImageZoomed, setIsImageZoomed] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const isFirstRender = useRef(true);
 
-  // Safety check to ensure index is within filtered bounds
   const safeIndex = Math.min(currentIndex, Math.max(0, filteredQuestions.length - 1));
   const currentQuestion = filteredQuestions[safeIndex];
   const isCorrect = selectedOption === currentQuestion?.correctAnswerId;
 
+  // Resolve image source from multiple possible property names
+  const questionImage = currentQuestion?.image_url || currentQuestion?.imageUrl;
+
   useEffect(() => {
     setStats(getStats());
   }, [isSubmitted, isStatsOpen]);
+
+  useEffect(() => {
+    setImageError(false); // Reset image error when question changes
+  }, [currentIndex, selectedTopic]);
 
   useEffect(() => {
     if (isFirstRender.current) {
@@ -181,7 +188,6 @@ function App() {
   return (
     <div className="min-h-screen bg-black flex flex-col items-center py-6 px-4 font-sans text-zinc-100">
       
-      {/* Header */}
       <header className="w-full max-w-4xl flex flex-col gap-6 mb-8">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-3">
@@ -189,7 +195,7 @@ function App() {
               <BookOpen className="text-white" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-black text-white tracking-tight">DATABRICKS CERT PREP</h1>
+              <h1 className="text-2xl font-black text-white tracking-tight uppercase">Databricks Cert Prep</h1>
               <div className="flex items-center gap-2 text-zinc-500 font-bold text-[10px] uppercase tracking-widest">
                 <span>Data Engineer Associate</span>
                 <span className="w-1 h-1 rounded-full bg-zinc-700"></span>
@@ -205,7 +211,6 @@ function App() {
           </div>
         </div>
 
-        {/* Topic Filter Pills */}
         <div className="flex flex-col gap-3">
           <div className="flex items-center gap-2 text-zinc-500 text-[10px] font-black uppercase tracking-widest px-1">
             <Filter size={10} /> Filter by Topic
@@ -228,13 +233,8 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="w-full max-w-4xl bg-zinc-900 rounded-[2.5rem] shadow-2xl border border-zinc-800/50 overflow-hidden flex flex-col md:flex-row min-h-[600px]">
-        
-        {/* Left Panel: Content */}
         <div className="flex-1 flex flex-col border-r border-zinc-800/50">
-          
-          {/* Progress Strip */}
           <div className="w-full bg-zinc-950 h-1 relative">
             <div 
               className="bg-green-500 h-full transition-all duration-700 ease-out shadow-[0_0_15px_rgba(34,197,94,0.6)]" 
@@ -264,18 +264,29 @@ function App() {
               </div>
             )}
 
-            {currentQuestion.image_url && (
-              <div className="mb-8 relative group cursor-zoom-in" onClick={() => setIsImageZoomed(true)}>
-                <div className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/5 transition-all rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
-                   <Maximize2 className="text-white" />
-                </div>
-                <div className="rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 p-4 flex justify-center shadow-2xl">
-                  <img 
-                    src={currentQuestion.image_url} 
-                    alt="Question visual aid" 
-                    className="max-h-[350px] object-contain w-auto rounded-lg transition-transform group-hover:scale-[1.01]"
-                    loading="eager"
-                  />
+            {questionImage && (
+              <div className="mb-8 relative group cursor-zoom-in" onClick={() => !imageError && setIsImageZoomed(true)}>
+                <div className="rounded-2xl overflow-hidden border border-zinc-800 bg-zinc-950 p-4 flex flex-col items-center justify-center shadow-2xl min-h-[100px]">
+                  {!imageError ? (
+                    <>
+                      <div className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/5 transition-all rounded-2xl flex items-center justify-center opacity-0 group-hover:opacity-100 z-10">
+                         <Maximize2 className="text-white" />
+                      </div>
+                      <img 
+                        src={questionImage} 
+                        alt="Question visual aid" 
+                        className="max-h-[350px] object-contain w-auto rounded-lg transition-transform group-hover:scale-[1.01]"
+                        loading="eager"
+                        onError={() => setImageError(true)}
+                      />
+                    </>
+                  ) : (
+                    <div className="flex flex-col items-center gap-2 text-zinc-600 py-8">
+                      <ImageOff size={40} strokeWidth={1.5} />
+                      <p className="text-xs font-bold uppercase tracking-widest">Image not found</p>
+                      <p className="text-[10px] font-medium opacity-50">{questionImage}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -325,7 +336,6 @@ function App() {
             )}
           </div>
 
-          {/* Footer Navigation */}
           <div className="p-8 border-t border-zinc-800/50 bg-zinc-950/20 flex justify-between items-center">
             <button
               onClick={handlePrev}
@@ -356,7 +366,6 @@ function App() {
         </div>
       </main>
 
-      {/* Info Tip */}
       <div className="mt-8 text-zinc-600 text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3">
         <div className="w-8 h-[1px] bg-zinc-800"></div>
         <HelpCircle size={14} className="text-zinc-700" />
@@ -364,14 +373,13 @@ function App() {
         <div className="w-8 h-[1px] bg-zinc-800"></div>
       </div>
 
-      {/* Image Modal */}
-      {isImageZoomed && currentQuestion.image_url && (
+      {isImageZoomed && questionImage && (
         <div 
           className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-4 cursor-zoom-out"
           onClick={() => setIsImageZoomed(false)}
         >
           <img 
-            src={currentQuestion.image_url} 
+            src={questionImage} 
             className="max-w-full max-h-full object-contain animate-in zoom-in-95 duration-200"
             alt="Zoomed view"
           />

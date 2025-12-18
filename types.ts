@@ -1,9 +1,11 @@
+
 export interface Question {
   id: number;
   topic: string;
   questionText: string;
   codeSnippet?: string;
-  image_url?: string;
+  image_url?: string; // Standardized snake_case
+  imageUrl?: string;  // Added for compatibility with user structure
   options: {
     id: string;
     text: string;
