@@ -4,7 +4,7 @@ export const questions: Question[] = [
   {
     id: 1,
     topic: "SQL Joins",
-    questionText: "A data engineer is working with two tables (sales and favorite_stores) displayed in the image. Which of the following will be returned by the LEFT JOIN query? [cite: 7, 12, 20]",
+    questionText: "A data engineer is working with two tables (sales and favorite_stores) displayed in the image. Which of the following will be returned by the LEFT JOIN query? ",
     imageUrl: "/images/p1_q1.png",
     options: [
       { id: "A", text: "Vedi immagine tabella", imageUrl: "/images/p1_q1_optA.png" }, // [cite: 21]
@@ -102,7 +102,7 @@ export const questions: Question[] = [
       { id: "E", text: "Delta tables are stored in a single file that contains only the data stored within the table." }
     ],
     correctAnswerId: "C",
-    explanation: "Le tabelle Delta sono memorizzate come directory contenenti file Parquet per i dati e una sottocartella _delta_log per i log delle transazioni in formato JSON." [cite: 485, 497, 511, 546]
+    explanation: "Le tabelle Delta sono memorizzate come directory contenenti file Parquet per i dati e una sottocartella _delta_log per i log delle transazioni in formato JSON. [cite: 485, 497, 511, 546]"
   },
   {
     id: 8,
@@ -117,7 +117,7 @@ export const questions: Question[] = [
       { id: "E", text: "DELETE FROM my_table WHERE age <= 25;" }
     ],
     correctAnswerId: "C",
-    explanation: "Delta Lake supporta pienamente l'istruzione standard SQL DELETE per rimuovere righe in base a una condizione specifica." [cite: 580, 583, 596, 632]
+    explanation: "Delta Lake supporta pienamente l'istruzione standard SQL DELETE per rimuovere righe in base a una condizione specifica. [cite: 580, 583, 596, 632]"
   },
   {
     id: 9,
@@ -131,7 +131,7 @@ export const questions: Question[] = [
       { id: "D", text: "Unity Catalog" }
     ],
     correctAnswerId: "B",
-    explanation: "Auto Loader è costruito sopra Spark Structured Streaming, che è il motore core che permette l'ingestione incrementale dei file." [cite: 657, 659, 678, 683]
+    explanation: "Auto Loader è costruito sopra Spark Structured Streaming, che è il motore core che permette l'ingestione incrementale dei file. [cite: 657, 659, 678, 683]"
   },
   {
     id: 10,
@@ -146,7 +146,7 @@ export const questions: Question[] = [
       { id: "E", text: "The HISTORY command was run on the table" }
     ],
     correctAnswerId: "A",
-    explanation: "Il comando VACUUM elimina i file di dati che non sono più referenziati dal log delle transazioni e che sono più vecchi del periodo di conservazione (default 7 giorni)." [cite: 714, 715, 735, 760]
+    explanation: "Il comando VACUUM elimina i file di dati che non sono più referenziati dal log delle transazioni e che sono più vecchi del periodo di conservazione (default 7 giorni). [cite: 714, 715, 735, 760]"
   },
   {
     id: 11,
@@ -160,7 +160,7 @@ export const questions: Question[] = [
       { id: "D", text: "SELECT null(member_id) FROM my_table" }
     ],
     correctAnswerId: "C",
-    explanation: "La funzione count_if permette di contare le righe che soddisfano una determinata condizione booleana, come il controllo dei valori NULL." [cite: 805, 808, 815]
+    explanation: "La funzione count_if permette di contare le righe che soddisfano una determinata condizione booleana, come il controllo dei valori NULL. [cite: 805, 808, 815]"
   },
   {
     id: 12,
@@ -175,7 +175,7 @@ export const questions: Question[] = [
       { id: "E", text: "Merge" }
     ],
     correctAnswerId: "E",
-    explanation: "Storicamente, operazioni come il merge avanzato o la risoluzione complessa di conflitti dovevano essere fatte esternamente, anche se le versioni più recenti di Databricks Repos supportano ormai quasi tutte queste funzioni." [cite: 823, 829, 831, 840, 857]
+    explanation: "Storicamente, operazioni come il merge avanzato o la risoluzione complessa di conflitti dovevano essere fatte esternamente, anche se le versioni più recenti di Databricks Repos supportano ormai quasi tutte queste funzioni. [cite: 823, 829, 831, 840, 857]"
   },
   {
     id: 13,
@@ -190,7 +190,7 @@ export const questions: Question[] = [
       { id: "E", text: "A data lakehouse enables machine learning and artificial Intelligence workloads." }
     ],
     correctAnswerId: "B",
-    explanation: "Il supporto alle transazioni ACID garantisce integrità e coerenza dei dati, evitando che scritture fallite o accessi concorrenti danneggino la qualità del dato." [cite: 930, 932, 942, 947, 960]
+    explanation: "Il supporto alle transazioni ACID garantisce integrità e coerenza dei dati, evitando che scritture fallite o accessi concorrenti danneggino la qualità del dato. [cite: 930, 932, 942, 947, 960]"
   },
   {
     id: 14,
@@ -293,7 +293,7 @@ export const questions: Question[] = [
       { id: "D", text: "Data" }
     ],
     correctAnswerId: "D",
-    [cite_start]explanation: "Il Data Plane, che fa parte dell'account cloud del cliente, è dove risiedono effettivamente i dati (es. su AWS S3 o Azure Blob Storage)[cite: 1513, 1517]."
+    explanation: "Il Data Plane, che fa parte dell'account cloud del cliente, è dove risiedono effettivamente i dati (es. su AWS S3 o Azure Blob Storage)[cite: 1513, 1517]."
   },
   {
     id: 21,
@@ -308,7 +308,7 @@ export const questions: Question[] = [
       { id: "E", text: "An ability to work with an array of tables for procedural automation" }
     ],
     correctAnswerId: "D",
-    [cite_start]explanation: "Le funzioni array sono particolarmente utili per manipolare strutture dati complesse e nidificate, tipiche dei file JSON[cite: 1550, 1560]."
+    explanation: "Le funzioni array sono particolarmente utili per manipolare strutture dati complesse e nidificate, tipiche dei file JSON[cite: 1550, 1560]."
   },
   {
     id: 22,
@@ -323,7 +323,7 @@ export const questions: Question[] = [
       { id: "E", text: "INSERT" }
     ],
     correctAnswerId: "C",
-    [cite_start]explanation: "Il comando MERGE permette di eseguire 'upsert', aggiornando i record esistenti e inserendo quelli nuovi, evitando così la creazione di duplicati[cite: 1634, 1695]."
+    explanation: "Il comando MERGE permette di eseguire 'upsert', aggiornando i record esistenti e inserendo quelli nuovi, evitando così la creazione di duplicati[cite: 1634, 1695]."
   },
   {
     id: 23,
@@ -337,7 +337,7 @@ export const questions: Question[] = [
       { id: "D", text: "Auto Loader" }
     ],
     correctAnswerId: "D",
-    [cite_start]explanation: "Auto Loader traccia automaticamente i nuovi file che appaiono in una directory e ingerisce solo quelli non ancora elaborati[cite: 1743, 1744]."
+    explanation: "Auto Loader traccia automaticamente i nuovi file che appaiono in una directory e ingerisce solo quelli non ancora elaborati[cite: 1743, 1744]."
   },
   {
     id: 24,
@@ -352,7 +352,7 @@ export const questions: Question[] = [
       { id: "E", text: "CREATE UDF combine_nyc(city STRING) RETURNS STRING RETURN CASE WHEN city = 'brooklyn' THEN 'new york' ELSE city END;" }
     ],
     correctAnswerId: "A",
-    [cite_start]explanation: "La sintassi corretta richiede 'CREATE FUNCTION' e la specifica del tipo di ritorno con 'RETURNS' prima del corpo della funzione[cite: 1782, 1818, 1835]."
+    explanation: "La sintassi corretta richiede 'CREATE FUNCTION' e la specifica del tipo di ritorno con 'RETURNS' prima del corpo della funzione[cite: 1782, 1818, 1835]."
   },
   {
     id: 25,
@@ -367,7 +367,7 @@ export const questions: Question[] = [
       { id: "E", text: "Redesign the data model to separate the data" }
     ],
     correctAnswerId: "B",
-    [cite_start]explanation: "Avvolgendo il codice SQL in PySpark, è possibile usare i costrutti Python (come 'if' e il modulo 'datetime') per gestire la logica condizionale[cite: 1884, 1886]."
+    explanation: "Avvolgendo il codice SQL in PySpark, è possibile usare i costrutti Python (come 'if' e il modulo 'datetime') per gestire la logica condizionale[cite: 1884, 1886]."
   },
   {
     id: 26,
@@ -382,7 +382,7 @@ export const questions: Question[] = [
       { id: "E", text: "The COPY INTO statement requires the table to be refreshed" }
     ],
     correctAnswerId: "C",
-    [cite_start]explanation: "COPY INTO è un'operazione idempotente: mantiene un log dei file già elaborati e salta quelli già caricati per evitare duplicati[cite: 1965, 2005, 2017]."
+    explanation: "COPY INTO è un'operazione idempotente: mantiene un log dei file già elaborati e salta quelli già caricati per evitare duplicati[cite: 1965, 2005, 2017]."
   },
   {
     id: 27,
@@ -588,7 +588,7 @@ export const questions: Question[] = [
       { id: "E", text: "When the previous step in the DLT pipeline is static." }
     ],
     correctAnswerId: "B",
-    [cite_start]explanation: "La sintassi STREAMING LIVE TABLE si usa specificamente per caricare e processare i dati in modo incrementale anziché in batch[cite: 3525, 3535]."
+    explanation: "La sintassi STREAMING LIVE TABLE si usa specificamente per caricare e processare i dati in modo incrementale anziché in batch[cite: 3525, 3535]."
   },
   {
     id: 48,
@@ -602,7 +602,7 @@ export const questions: Question[] = [
       { id: "D", text: "The customers table is a reference to a Structured Streaming query." }
     ],
     correctAnswerId: "C",
-    [cite_start]explanation: "La funzione STREAM() serve a indicare al motore DLT che deve leggere la tabella 'customers' come una sorgente streaming[cite: 3584, 3596]."
+    explanation: "La funzione STREAM() serve a indicare al motore DLT che deve leggere la tabella 'customers' come una sorgente streaming[cite: 3584, 3596]."
   },
   {
     id: 49,
@@ -617,7 +617,7 @@ export const questions: Question[] = [
       { id: "E", text: "Auto Loader" }
     ],
     correctAnswerId: "E",
-    [cite_start]explanation: "Auto Loader è progettato per gestire l'ingestione incrementale scalabile, tracciando automaticamente i nuovi file senza rielaborare quelli vecchi[cite: 3609, 3619]."
+    explanation: "Auto Loader è progettato per gestire l'ingestione incrementale scalabile, tracciando automaticamente i nuovi file senza rielaborare quelli vecchi[cite: 3609, 3619]."
   },
   {
     id: 50,
@@ -631,7 +631,7 @@ export const questions: Question[] = [
       { id: "D", text: "Clone" }
     ],
     correctAnswerId: "C",
-    [cite_start]explanation: "Sebbene Databricks Repos si stia evolvendo, le operazioni di Merge (soprattutto quelle complesse o tramite Pull Request) sono solitamente delegate al fornitore Git esterno[cite: 3663, 3686]."
+    explanation: "Sebbene Databricks Repos si stia evolvendo, le operazioni di Merge (soprattutto quelle complesse o tramite Pull Request) sono solitamente delegate al fornitore Git esterno[cite: 3663, 3686]."
   },
   {
     id: 51,
@@ -646,7 +646,7 @@ export const questions: Question[] = [
       { id: "E", text: "Vedi opzione E nell'immagine" }
     ],
     correctAnswerId: "E",
-    [cite_start]explanation: "Il passaggio al livello Gold è caratterizzato da aggregazioni (groupBy, agg) e spesso richiede l'outputMode 'complete' per aggiornare i risultati[cite: 3755, 3760, 3776]."
+    explanation: "Il passaggio al livello Gold è caratterizzato da aggregazioni (groupBy, agg) e spesso richiede l'outputMode 'complete' per aggiornare i risultati[cite: 3755, 3760, 3776]."
   },
   {
     id: 52,
@@ -661,7 +661,7 @@ export const questions: Question[] = [
       { id: "E", text: "Click on the 'Error' button on the pipeline page." }
     ],
     correctAnswerId: "D",
-    [cite_start]explanation: "L'interfaccia UI di DLT permette di cliccare su ogni singolo nodo (tabella) della pipeline per visualizzare metriche dettagliate sulla qualità dei dati e sui record scartati[cite: 3810, 3818]."
+    explanation: "L'interfaccia UI di DLT permette di cliccare su ogni singolo nodo (tabella) della pipeline per visualizzare metriche dettagliate sulla qualità dei dati e sui record scartati[cite: 3810, 3818]."
   },
   {
     id: 53,
@@ -676,109 +676,109 @@ export const questions: Question[] = [
       { id: "E", text: "Clone the task to a new Job." }
     ],
     correctAnswerId: "B",
-    [cite_start]explanation: "Per far girare il nuovo task prima dell'originale, il task originale deve 'dipendere' dal nuovo task[cite: 3893, 3904]."
+    explanation: "Per far girare il nuovo task prima dell'originale, il task originale deve 'dipendere' dal nuovo task[cite: 3893, 3904]."
   },
   {
     id: 54,
     topic: "Databricks SQL Performance",
-    questionText: "An engineering manager wants to monitor the performance of a recent project using a Databricks SQL query. For the first week following the project's release, the manager wants the query results to be updated every minute. However, the manager is concerned that the compute resources used for the query will be left running and cost the organization a lot of money beyond the first week of the project's release. Which of the following approaches can the engineering team use to ensure the query does not cost the organization any money beyond the first week of the project's release?", [cite: 4031, 4033, 4034, 4035, 4036]
+    questionText: "An engineering manager wants to monitor the performance of a recent project using a Databricks SQL query. For the first week following the project's release, the manager wants the query results to be updated every minute. However, the manager is concerned that the compute resources used for the query will be left running and cost the organization a lot of money beyond the first week of the project's release. Which of the following approaches can the engineering team use to ensure the query does not cost the organization any money beyond the first week of the project's release?",
     imageUrl: null,
     options: [
-      { id: "A", text: "They can set a limit to the number of DBUs that are consumed by the SQL Endpoint." }, [cite: 4037]
-      { id: "B", text: "They can set the query's refresh schedule to end after a certain number of refreshes." }, [cite: 4038]
-      { id: "C", text: "They cannot ensure the query does not cost the organization money beyond the first week of the project's release." }, [cite: 4039]
-      { id: "D", text: "They can set a limit to the number of individuals that are able to manage the query's refresh schedule." }, [cite: 4040]
-      { id: "E", text: "They can set the query's refresh schedule to end on a certain date in the query scheduler." } [cite: 4041]
+      { id: "A", text: "They can set a limit to the number of DBUs that are consumed by the SQL Endpoint." },
+      { id: "B", text: "They can set the query's refresh schedule to end after a certain number of refreshes." },
+      { id: "C", text: "They cannot ensure the query does not cost the organization money beyond the first week of the project's release." },
+      { id: "D", text: "They can set a limit to the number of individuals that are able to manage the query's refresh schedule." },
+      { id: "E", text: "They can set the query's refresh schedule to end on a certain date in the query scheduler." } 
     ],
-    correctAnswerId: "E", [cite: 4042]
-    explanation: "Sebbene l'interfaccia UI possa variare, l'uso della sintassi cron o delle impostazioni di pianificazione permette di definire una data di fine per evitare costi imprevisti." [cite: 4073, 4100, 4113]
+    correctAnswerId: "E",
+    explanation: "Sebbene l'interfaccia UI possa variare, l'uso della sintassi cron o delle impostazioni di pianificazione permette di definire una data di fine per evitare costi imprevisti."
   },
   {
     id: 55,
     topic: "SQL Set Operations",
-    questionText: "A data engineering team has two tables. The first table march_transactions is a collection of all retail transactions in the month of March. The second table april_transactions is a collection of all retail transactions in the month of April. There are no duplicate records between the tables. Which of the following commands should be run to create a new table all_transactions that contains all records from march_transactions and april_transactions without duplicate records?", [cite: 4147, 4149, 4150, 4151, 4152]
+    questionText: "A data engineering team has two tables. The first table march_transactions is a collection of all retail transactions in the month of March. The second table april_transactions is a collection of all retail transactions in the month of April. There are no duplicate records between the tables. Which of the following commands should be run to create a new table all_transactions that contains all records from march_transactions and april_transactions without duplicate records?",
     imageUrl: null,
     options: [
-      { id: "A", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions INNER JOIN SELECT * FROM april_transactions;" }, [cite: 4153, 4154, 4155]
-      { id: "B", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions UNION SELECT * FROM april_transactions;" }, [cite: 4156, 4157, 4158]
-      { id: "C", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions OUTER JOIN SELECT * FROM april_transactions;" }, [cite: 4159, 4160, 4161]
-      { id: "D", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions INTERSECT SELECT * from april_transactions;" } [cite: 4162, 4163, 4164]
+      { id: "A", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions INNER JOIN SELECT * FROM april_transactions;" }, 
+      { id: "B", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions UNION SELECT * FROM april_transactions;" }, 
+      { id: "C", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions OUTER JOIN SELECT * FROM april_transactions;" }, 
+      { id: "D", text: "CREATE TABLE all_transactions AS SELECT * FROM march_transactions INTERSECT SELECT * from april_transactions;" } 
     ],
-    correctAnswerId: "B", [cite: 4165]
-    explanation: "L'operatore UNION combina i risultati di due tabelle e rimuove automaticamente i duplicati, garantendo un unico set di record univoci." [cite: 4171, 2220]
+    correctAnswerId: "B",
+    explanation: "L'operatore UNION combina i risultati di due tabelle e rimuove automaticamente i duplicati, garantendo un unico set di record univoci."
   },
   {
     id: 56,
     topic: "SQL Endpoint Latency",
-    questionText: "A data analysis team has noticed that their Databricks SQL queries are running too slowly when connected to their always-on SQL endpoint. They claim that this issue is present when many members of the team are running small queries simultaneously. They ask the data engineering team for help. The data engineering team notices that each of the team's queries uses the same SQL endpoint. Which of the following approaches can the data engineering team use to improve the latency of the team's queries?", [cite: 4173, 4175, 4176, 4177, 4178]
+    questionText: "A data analysis team has noticed that their Databricks SQL queries are running too slowly when connected to their always-on SQL endpoint. They claim that this issue is present when many members of the team are running small queries simultaneously. They ask the data engineering team for help. The data engineering team notices that each of the team's queries uses the same SQL endpoint. Which of the following approaches can the data engineering team use to improve the latency of the team's queries?", 
     imageUrl: null,
     options: [
-      { id: "A", text: "They can increase the cluster size of the SQL endpoint." }, [cite: 4179]
-      { id: "B", text: "They can increase the maximum bound of the SQL endpoint's scaling range." }, [cite: 4180]
-      { id: "C", text: "They can turn on the Auto Stop feature for the SQL endpoint." }, [cite: 4181]
-      { id: "D", text: "They can turn on the Serverless feature for the SQL endpoint." }, [cite: 4182]
-      { id: "E", text: "They can turn on the Serverless feature for the SQL endpoint and change the Spot Instance Policy to 'Reliability Optimized.'" } [cite: 4183]
+      { id: "A", text: "They can increase the cluster size of the SQL endpoint." }, 
+      { id: "B", text: "They can increase the maximum bound of the SQL endpoint's scaling range." }, 
+      { id: "C", text: "They can turn on the Auto Stop feature for the SQL endpoint." }, 
+      { id: "D", text: "They can turn on the Serverless feature for the SQL endpoint." }, 
+      { id: "E", text: "They can turn on the Serverless feature for the SQL endpoint and change the Spot Instance Policy to 'Reliability Optimized.'" } 
     ],
-    correctAnswerId: "B", [cite: 4184]
-    explanation: "Per risolvere problemi di latenza dovuti all'esecuzione simultanea (concorrente) di molte query, è necessario lo 'Scale Out' orizzontale aumentando il limite massimo del range di scaling dell'endpoint." [cite: 4193, 4212, 4251]
+    correctAnswerId: "B", 
+    explanation: "Per risolvere problemi di latenza dovuti all'esecuzione simultanea (concorrente) di molte query, è necessario lo 'Scale Out' orizzontale aumentando il limite massimo del range di scaling dell'endpoint." 
   },
   {
     id: 57,
     topic: "Databricks SQL Performance",
-    questionText: "A data engineer wants to schedule their Databricks SQL dashboard to refresh once per day, but they only want the associated SQL endpoint to be running when it is necessary. Which of the following approaches can the data engineer use to minimize the total running time of the SQL endpoint used in the refresh schedule of their dashboard?", [cite: 4288, 4290, 4291]
+    questionText: "A data engineer wants to schedule their Databricks SQL dashboard to refresh once per day, but they only want the associated SQL endpoint to be running when it is necessary. Which of the following approaches can the data engineer use to minimize the total running time of the SQL endpoint used in the refresh schedule of their dashboard?", 
     imageUrl: null,
     options: [
-      { id: "A", text: "They can ensure the dashboard's SQL endpoint matches each of the queries' SQL endpoints." }, [cite: 4292]
-      { id: "B", text: "They can set up the dashboard's SQL endpoint to be serverless." }, [cite: 4293]
-      { id: "C", text: "They can turn on the Auto Stop feature for the SQL endpoint." }, [cite: 4294]
-      { id: "D", text: "They can reduce the cluster size of the SQL endpoint." }, [cite: 4295]
-      { id: "E", text: "They can ensure the dashboard's SQL endpoint is not one of the included query's SQL endpoint." } [cite: 4296]
+      { id: "A", text: "They can ensure the dashboard's SQL endpoint matches each of the queries' SQL endpoints." }, 
+      { id: "B", text: "They can set up the dashboard's SQL endpoint to be serverless." }, 
+      { id: "C", text: "They can turn on the Auto Stop feature for the SQL endpoint." }, 
+      { id: "D", text: "They can reduce the cluster size of the SQL endpoint." }, 
+      { id: "E", text: "They can ensure the dashboard's SQL endpoint is not one of the included query's SQL endpoint." } 
     ],
-    correctAnswerId: "C", [cite: 4297]
-    explanation: "La funzione Auto Stop permette all'endpoint SQL di spegnersi automaticamente quando è inattivo, minimizzando i tempi di esecuzione e i costi associati." [cite: 4303, 4323, 4339]
+    correctAnswerId: "C", 
+    explanation: "La funzione Auto Stop permette all'endpoint SQL di spegnersi automaticamente quando è inattivo, minimizzando i tempi di esecuzione e i costi associati." 
   },
   {
     id: 58,
     topic: "Databricks Jobs",
-    questionText: "In which of the following scenarios should a data engineer select a Task in the Depends On field of a new Databricks Job Task?", [cite: 4362, 4363]
+    questionText: "In which of the following scenarios should a data engineer select a Task in the Depends On field of a new Databricks Job Task?", 
     imageUrl: null,
     options: [
-      { id: "A", text: "When another task needs to be replaced by the new task" }, [cite: 4364]
-      { id: "B", text: "When another task needs to successfully complete before the new task begins" }, [cite: 4365]
-      { id: "C", text: "When another task has the same dependency libraries as the new task" }, [cite: 4366]
-      { id: "D", text: "When another task needs to use as little compute resources as possible" } [cite: 4367]
+      { id: "A", text: "When another task needs to be replaced by the new task" }, 
+      { id: "B", text: "When another task needs to successfully complete before the new task begins" }, 
+      { id: "C", text: "When another task has the same dependency libraries as the new task" }, 
+      { id: "D", text: "When another task needs to use as little compute resources as possible" } 
     ],
-    correctAnswerId: "B", [cite: 4368]
-    explanation: "Il campo 'Depends On' viene utilizzato per definire le dipendenze tra i task, assicurando che un task inizi solo dopo il completamento con successo di quelli precedenti." [cite: 4375, 3947, 3998]
+    correctAnswerId: "B", 
+    explanation: "Il campo 'Depends On' viene utilizzato per definire le dipendenze tra i task, assicurando che un task inizi solo dopo il completamento con successo di quelli precedenti." 
   },
   {
     id: 59,
     topic: "Databricks SQL Alerts",
-    questionText: "A data engineer has been using a Databricks SQL dashboard to monitor the cleanliness of the input data to an ELT job. The ELT job has its Databricks SQL query that returns the number of input records containing unexpected NULL values. The data engineer wants their entire team to be notified via a messaging webhook whenever this value reaches 100. Which of the following approaches can the data engineer use to notify their entire team via a messaging webhook whenever the number of NULL values reaches 100?", [cite: 4377, 4379, 4380, 4381, 4382]
+    questionText: "A data engineer has been using a Databricks SQL dashboard to monitor the cleanliness of the input data to an ELT job. The ELT job has its Databricks SQL query that returns the number of input records containing unexpected NULL values. The data engineer wants their entire team to be notified via a messaging webhook whenever this value reaches 100. Which of the following approaches can the data engineer use to notify their entire team via a messaging webhook whenever the number of NULL values reaches 100?", 
     imageUrl: null,
     options: [
-      { id: "A", text: "They can set up an Alert with a custom template." }, [cite: 4383]
-      { id: "B", text: "They can set up an Alert with a new email alert destination." }, [cite: 4384]
-      { id: "C", text: "They can set up an Alert with a new webhook alert destination." }, [cite: 4385]
-      { id: "D", text: "They can set up an Alert with one-time notifications." }, [cite: 4386]
-      { id: "E", text: "They can set up an Alert without notifications." } [cite: 4387]
+      { id: "A", text: "They can set up an Alert with a custom template." }, 
+      { id: "B", text: "They can set up an Alert with a new email alert destination." }, 
+      { id: "C", text: "They can set up an Alert with a new webhook alert destination." }, 
+      { id: "D", text: "They can set up an Alert with one-time notifications." }, 
+      { id: "E", text: "They can set up an Alert without notifications." } 
     ],
-    correctAnswerId: "C", [cite: 4388]
-    explanation: "Per inviare notifiche a servizi di messaggistica esterni (come Slack o Teams) è necessario configurare un Alert con una destinazione di tipo webhook." [cite: 4411, 4420, 4432]
+    correctAnswerId: "C", 
+    explanation: "Per inviare notifiche a servizi di messaggistica esterni (come Slack o Teams) è necessario configurare un Alert con una destinazione di tipo webhook." 
   },
   {
     id: 60,
     topic: "Delta Live Tables",
-    questionText: "Which of the following must be specified when creating a new Delta Live Tables pipeline?", [cite: 4435, 4436]
+    questionText: "Which of the following must be specified when creating a new Delta Live Tables pipeline?", 
     imageUrl: null,
     options: [
-      { id: "A", text: "A key-value pair configuration" }, [cite: 4437]
-      { id: "B", text: "At least one notebook library to be executed" }, [cite: 4438]
-      { id: "C", text: "A path to cloud storage location for the written data" }, [cite: 4439]
-      { id: "D", text: "A location of a target database for the written data" } [cite: 4440]
+      { id: "A", text: "A key-value pair configuration" }, 
+      { id: "B", text: "At least one notebook library to be executed" }, 
+      { id: "C", text: "A path to cloud storage location for the written data" }, 
+      { id: "D", text: "A location of a target database for the written data" } 
     ],
-    correctAnswerId: "B", [cite: 4441]
-    explanation: "La creazione di una pipeline DLT richiede obbligatoriamente la specifica di almeno una libreria di notebook che contenga il codice da eseguire." [cite: 4447, 4448]
+    correctAnswerId: "B", 
+    explanation: "La creazione di una pipeline DLT richiede obbligatoriamente la specifica di almeno una libreria di notebook che contenga il codice da eseguire." 
   },
   {
     id: 61,
@@ -793,7 +793,7 @@ export const questions: Question[] = [
       { id: "E", text: "They can navigate to the Tasks tab in the Jobs UI to immediately review the processing notebook." }
     ],
     correctAnswerId: "C",
-    [cite_start]explanation: "La scheda 'Runs' nell'interfaccia utente dei Job mostra l'elenco di tutte le esecuzioni. Cliccando sull'esecuzione attiva, il tech lead può accedere a informazioni dettagliate, log e metriche per identificare la causa del rallentamento[cite: 13470, 13472]."
+    explanation: "La scheda 'Runs' nell'interfaccia utente dei Job mostra l'elenco di tutte le esecuzioni. Cliccando sull'esecuzione attiva, il tech lead può accedere a informazioni dettagliate, log e metriche per identificare la causa del rallentamento."
   },
   {
     id: 62,
@@ -808,7 +808,7 @@ export const questions: Question[] = [
       { id: "E", text: "They can configure the clusters to autoscale for larger data sizes" }
     ],
     correctAnswerId: "D",
-    [cite_start]explanation: "I cluster pool mantengono un set di istanze virtuali pre-inizializzate e pronte all'uso, eliminando la necessità di avviare nuove VM da zero e riducendo drasticamente i tempi di avvio[cite: 13566, 13587]."
+    explanation: "I cluster pool mantengono un set di istanze virtuali pre-inizializzate e pronte all'uso, eliminando la necessità di avviare nuove VM da zero e riducendo drasticamente i tempi di avvio."
   },
   {
     id: 63,
@@ -823,7 +823,7 @@ export const questions: Question[] = [
       { id: "E", text: "GRANT ALL PRIVILEGES ON DATABASE customers TO team;" }
     ],
     correctAnswerId: "E",
-    [cite_start]explanation: "Il comando GRANT ALL PRIVILEGES fornisce alla squadra specificata tutti i permessi disponibili sul database, permettendo loro di gestirlo completamente[cite: 13653, 13697]."
+    explanation: "Il comando GRANT ALL PRIVILEGES fornisce alla squadra specificata tutti i permessi disponibili sul database, permettendo loro di gestirlo completamente."
   },
   {
     id: 64,
@@ -838,7 +838,7 @@ export const questions: Question[] = [
       { id: "E", text: "GRANT USAGE ON DATABASE customers TO team;" }
     ],
     correctAnswerId: "E",
-    [cite_start]explanation: "Il privilegio USAGE consente a un gruppo di visualizzare gli oggetti esistenti all'interno di un database (come le tabelle) senza permettere altre operazioni[cite: 13826]."
+    explanation: "Il privilegio USAGE consente a un gruppo di visualizzare gli oggetti esistenti all'interno di un database (come le tabelle) senza permettere altre operazioni."
   },
   {
     id: 65,
@@ -853,7 +853,7 @@ export const questions: Question[] = [
       { id: "E", text: "Clone" }
     ],
     correctAnswerId: "C",
-    [cite_start]explanation: "L'operazione di 'Pull' è necessaria per sincronizzare il repository Databricks locale con le modifiche apportate al repository Git centrale[cite: 13876]."
+    explanation: "L'operazione di 'Pull' è necessaria per sincronizzare il repository Databricks locale con le modifiche apportate al repository Git centrale."
   },
   {
     id: 66,
@@ -868,7 +868,7 @@ export const questions: Question[] = [
       { id: "E", text: "Avoiding vendor lock-in" }
     ],
     correctAnswerId: "E",
-    [cite_start]explanation: "L'adozione di tecnologie open-source (come Delta Lake) permette agli utenti di non essere vincolati all'ecosistema di un singolo fornitore (vendor lock-in), offrendo maggiore flessibilità[cite: 13890, 13898]."
+    explanation: "L'adozione di tecnologie open-source (come Delta Lake) permette agli utenti di non essere vincolati all'ecosistema di un singolo fornitore (vendor lock-in), offrendo maggiore flessibilità."
   },
   {
     id: 67,
@@ -882,7 +882,7 @@ export const questions: Question[] = [
       { id: "D", text: "if day_of_week == 1 and review_period:" }
     ],
     correctAnswerId: "D",
-    explanation: "In Python, '==' si usa per il confronto di uguaglianza. [cite_start]Se una variabile è booleana (True/False), può essere valutata direttamente nel blocco 'if' senza confrontarla con una stringa[cite: 13926, 13927]."
+    explanation: "In Python, '==' si usa per il confronto di uguaglianza. Se una variabile è booleana (True/False), può essere valutata direttamente nel blocco 'if' senza confrontarla con una stringa."
   },
   {
     id: 68,
@@ -897,7 +897,7 @@ export const questions: Question[] = [
       { id: "E", text: "Data Explorer" }
     ],
     correctAnswerId: "E",
-    [cite_start]explanation: "Data Explorer è lo strumento di Databricks dedicato alla visualizzazione e gestione dei permessi per tabelle, schemi e database[cite: 13946]."
+    explanation: "Data Explorer è lo strumento di Databricks dedicato alla visualizzazione e gestione dei permessi per tabelle, schemi e database."
   },
   {
     id: 69,
