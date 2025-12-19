@@ -86,7 +86,7 @@ function App() {
     return selectedOptions.every(opt => correctAnswers.includes(opt));
   }, [isSubmitted, selectedOptions, correctAnswers]);
 
-  const questionImage = currentQuestion?.image_url || currentQuestion?.imageUrl;
+  const questionImage = currentQuestion?.imageUrl;
 
   useEffect(() => {
     setStats(getStats());
@@ -347,7 +347,21 @@ function App() {
                        isSubmitted && isSelected && !isCorrectAnswer ? <X size={14} /> : 
                        opt.id}
                     </div>
-                    <span className="text-[15px] font-medium leading-normal">{opt.text}</span>
+                    <div className="flex flex-col gap-2 w-full">
+                      <span className="text-[15px] font-medium leading-normal">{opt.text}</span>
+  
+                      {/* Mostra l'immagine se presente nelle opzioni */}
+                      {opt.imageUrl && (
+                        <div className="mt-1 rounded-lg overflow-hidden border border-zinc-800 bg-black/40 p-1 w-fit">
+                          <img 
+                            src={opt.imageUrl} 
+                            alt={`Option ${opt.id}`} 
+                            className="max-h-48 md:max-h-64 object-contain rounded"
+                            onError={(e) => (e.currentTarget.style.display = 'none')} 
+                          />
+                        </div>
+                      )}
+                      </div>
                   </button>
                 );
               })}

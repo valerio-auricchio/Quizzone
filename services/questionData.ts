@@ -7,13 +7,29 @@ export const questions: Question[] = [
     questionText: "A data engineer is working with two tables (sales and favorite_stores) displayed in the image. Which of the following will be returned by the LEFT JOIN query? ",
     imageUrl: "/images/p1_q1.png",
     options: [
-      { id: "A", text: "Vedi immagine tabella", imageUrl: "/images/p1_q1_optA.png" }, // [cite: 21]
-      { id: "B", text: "Vedi immagine tabella", imageUrl: "/images/p1_q1_optB.png" }, // [cite: 22, 23]
-      { id: "C", text: "Vedi immagine tabella", imageUrl: "/images/p1_q1_optC.png" }, // [cite: 24, 25]
-      { id: "D", text: "Vedi immagine tabella", imageUrl: "/images/p1_q1_optD.png" }  // [cite: 26]
+      { 
+        id: "A", 
+        text: "Vedi immagine tabella", 
+        imageUrl: "/images/p1_q1_optA.png" 
+      }, 
+      { 
+        id: "B", 
+        text: "Vedi immagine tabella", 
+        imageUrl: "/images/p1_q1_optB.png" 
+      },
+      { 
+        id: "C", 
+        text: "Vedi immagine tabella", 
+        imageUrl: "/images/p1_q1_optC.png" 
+      }, 
+      { 
+        id: "D", 
+        text: "Vedi immagine tabella", 
+        imageUrl: "/images/p1_q1_optD.png" 
+      }  
     ],
-    correctAnswerId: "C", // [cite: 29, 33]
-    explanation: "In un LEFT JOIN, vengono mantenuti tutti i record della tabella di sinistra (sales), mentre vengono inclusi solo i record corrispondenti della tabella di destra (favorite_stores)[cite: 34, 37]."
+    correctAnswerId: "C",
+    explanation: "In un LEFT JOIN, vengono mantenuti tutti i record della tabella di sinistra (sales), mentre vengono inclusi solo i record corrispondenti della tabella di destra (favorite_stores)."
   },
   {
     id: 2,

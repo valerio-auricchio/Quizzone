@@ -4,13 +4,14 @@ export interface Question {
   topic: string;
   questionText: string;
   codeSnippet?: string;
-  image_url?: string;
-  imageUrl?: string;
+  // Ho rimosso image_url (quello col trattino) per pulizia
+  imageUrl?: string; 
   options: {
     id: string;
     text: string;
+    imageUrl?: string; // <--- QUESTA È LA RIGA MAGICA CHE MANCA!
   }[];
-  correctAnswerId: string | string[]; // Can be a single ID or an array of IDs
+  correctAnswerId: string | string[];
   explanation: string;
 }
 
