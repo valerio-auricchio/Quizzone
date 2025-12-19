@@ -26,7 +26,7 @@ export const questions: Question[] = [
       { id: "C", text: "Scalable Metadata Handling" },
       { id: "D", text: "Automatic conversion of CSV to JSON" }
     ],
-    correctAnswerId: ["A", "C"],
+    correctAnswerId: "A, C",
     explanation: "Delta Lake provides ACID transactions and scalable metadata handling by using a transaction log (Delta Log)."
   },
   {

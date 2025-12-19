@@ -67,16 +67,22 @@ function App() {
   const safeIndex = Math.min(currentIndex, Math.max(0, filteredQuestions.length - 1));
   const currentQuestion = filteredQuestions[safeIndex];
 
-  // Logic to determine if question is multiple choice
-  const correctAnswers = Array.isArray(currentQuestion?.correctAnswerId) 
-    ? currentQuestion.correctAnswerId 
-    : [currentQuestion?.correctAnswerId];
+  // Logic to determine if question is multiple choice, handling arrays or comma-separated strings
+  const correctAnswers = useMemo(() => {
+    const rawValue = currentQuestion?.correctAnswerId;
+    if (Array.isArray(rawValue)) return rawValue;
+    if (typeof rawValue === 'string' && rawValue.includes(',')) {
+      return rawValue.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    return rawValue ? [rawValue as string] : [];
+  }, [currentQuestion]);
   
   const isMultipleChoice = correctAnswers.length > 1;
 
   const isCorrect = useMemo(() => {
     if (!isSubmitted) return false;
     if (selectedOptions.length !== correctAnswers.length) return false;
+    // Check if all selected options are in the correct answers set
     return selectedOptions.every(opt => correctAnswers.includes(opt));
   }, [isSubmitted, selectedOptions, correctAnswers]);
 
