@@ -16,7 +16,8 @@ import {
   RotateCcw,
   Filter,
   Maximize2,
-  ImageOff
+  ImageOff,
+  Layers
 } from 'lucide-react';
 import { Question } from './types';
 
@@ -46,9 +47,9 @@ function App() {
     return session ? session.currentIndex : 0;
   });
 
-  const [selectedOption, setSelectedOption] = useState<string | null>(() => {
+  const [selectedOptions, setSelectedOptions] = useState<string[]>(() => {
     const session = getSession();
-    return session ? session.selectedOption : null;
+    return session ? session.selectedOptions : [];
   });
 
   const [isSubmitted, setIsSubmitted] = useState(() => {
@@ -65,9 +66,20 @@ function App() {
 
   const safeIndex = Math.min(currentIndex, Math.max(0, filteredQuestions.length - 1));
   const currentQuestion = filteredQuestions[safeIndex];
-  const isCorrect = selectedOption === currentQuestion?.correctAnswerId;
 
-  // Resolve image source from multiple possible property names
+  // Logic to determine if question is multiple choice
+  const correctAnswers = Array.isArray(currentQuestion?.correctAnswerId) 
+    ? currentQuestion.correctAnswerId 
+    : [currentQuestion?.correctAnswerId];
+  
+  const isMultipleChoice = correctAnswers.length > 1;
+
+  const isCorrect = useMemo(() => {
+    if (!isSubmitted) return false;
+    if (selectedOptions.length !== correctAnswers.length) return false;
+    return selectedOptions.every(opt => correctAnswers.includes(opt));
+  }, [isSubmitted, selectedOptions, correctAnswers]);
+
   const questionImage = currentQuestion?.image_url || currentQuestion?.imageUrl;
 
   useEffect(() => {
@@ -75,7 +87,7 @@ function App() {
   }, [isSubmitted, isStatsOpen]);
 
   useEffect(() => {
-    setImageError(false); // Reset image error when question changes
+    setImageError(false);
   }, [currentIndex, selectedTopic]);
 
   useEffect(() => {
@@ -87,21 +99,27 @@ function App() {
     saveSession({
       questionOrder: questionList.map(q => q.id),
       currentIndex: safeIndex,
-      selectedOption,
+      selectedOptions,
       isSubmitted
     });
-  }, [questionList, safeIndex, selectedOption, isSubmitted]);
+  }, [questionList, safeIndex, selectedOptions, isSubmitted]);
 
   const handleOptionSelect = (id: string) => {
-    if (!isSubmitted) {
-      setSelectedOption(id);
+    if (isSubmitted) return;
+
+    if (isMultipleChoice) {
+      setSelectedOptions(prev => 
+        prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+      );
+    } else {
+      setSelectedOptions([id]);
     }
   };
 
   const handleSubmit = () => {
-    if (selectedOption && currentQuestion) {
+    if (selectedOptions.length > 0 && currentQuestion) {
       setIsSubmitted(true);
-      saveStat(currentQuestion.id, selectedOption === currentQuestion.correctAnswerId);
+      saveStat(currentQuestion.id, isCorrect);
       setStats(getStats());
     }
   };
@@ -140,7 +158,7 @@ function App() {
   };
 
   const resetStateForNewQuestion = () => {
-    setSelectedOption(null);
+    setSelectedOptions([]);
     setIsSubmitted(false);
   };
 
@@ -157,19 +175,22 @@ function App() {
 
   const getOptionStyle = (optionId: string) => {
     const baseStyle = "w-full text-left p-5 rounded-2xl border-2 transition-all duration-200 flex items-start gap-4 relative overflow-hidden group";
+    const isSelected = selectedOptions.includes(optionId);
+    const isCorrectAnswer = correctAnswers.includes(optionId);
     
     if (!isSubmitted) {
-      if (selectedOption === optionId) {
+      if (isSelected) {
         return `${baseStyle} border-green-500 bg-green-500/10 text-green-100 ring-4 ring-green-500/10`;
       }
       return `${baseStyle} border-zinc-800 hover:border-zinc-600 bg-zinc-900/50 text-zinc-300`;
     }
 
-    if (optionId === currentQuestion?.correctAnswerId) {
+    // Results state
+    if (isCorrectAnswer) {
       return `${baseStyle} border-emerald-500 bg-emerald-500/10 text-emerald-100 shadow-[0_0_20px_rgba(16,185,129,0.15)]`;
     }
     
-    if (selectedOption === optionId && !isCorrect) {
+    if (isSelected && !isCorrectAnswer) {
       return `${baseStyle} border-red-500 bg-red-500/10 text-red-100 ring-4 ring-red-500/10`;
     }
 
@@ -244,9 +265,16 @@ function App() {
 
           <div className="p-8 md:p-10 flex-1 overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
-              <span className="text-[10px] font-black text-green-500 bg-green-500/10 px-3 py-1 rounded-full uppercase tracking-tighter">
-                {currentQuestion.topic}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black text-green-500 bg-green-500/10 px-3 py-1 rounded-full uppercase tracking-tighter">
+                  {currentQuestion.topic}
+                </span>
+                {isMultipleChoice && (
+                  <span className="text-[10px] font-black text-amber-500 bg-amber-500/10 px-3 py-1 rounded-full uppercase tracking-tighter flex items-center gap-1">
+                    <Layers size={10} /> Select {correctAnswers.length}
+                  </span>
+                )}
+              </div>
               <span className="text-zinc-500 text-xs font-bold tabular-nums">
                 Q {currentIndex + 1} / {filteredQuestions.length}
               </span>
@@ -292,26 +320,31 @@ function App() {
             )}
 
             <div className="space-y-4 mb-10">
-              {currentQuestion.options.map((opt) => (
-                <button
-                  key={opt.id}
-                  onClick={() => handleOptionSelect(opt.id)}
-                  disabled={isSubmitted}
-                  className={getOptionStyle(opt.id)}
-                >
-                  <div className={`
-                    w-7 h-7 rounded-xl border-2 flex items-center justify-center text-[11px] font-black flex-shrink-0 transition-all
-                    ${!isSubmitted && selectedOption === opt.id ? 'border-green-500 text-white bg-green-500' : 'border-zinc-700 text-zinc-500 bg-zinc-950'}
-                    ${isSubmitted && opt.id === currentQuestion.correctAnswerId ? 'border-emerald-500 bg-emerald-500 text-white shadow-lg' : ''}
-                    ${isSubmitted && selectedOption === opt.id && !isCorrect ? 'border-red-500 bg-red-500 text-white' : ''}
-                  `}>
-                    {isSubmitted && opt.id === currentQuestion.correctAnswerId ? <Check size={14} /> : 
-                     isSubmitted && selectedOption === opt.id && !isCorrect ? <X size={14} /> : 
-                     opt.id}
-                  </div>
-                  <span className="text-[15px] font-medium leading-normal">{opt.text}</span>
-                </button>
-              ))}
+              {currentQuestion.options.map((opt) => {
+                const isSelected = selectedOptions.includes(opt.id);
+                const isCorrectAnswer = correctAnswers.includes(opt.id);
+                
+                return (
+                  <button
+                    key={opt.id}
+                    onClick={() => handleOptionSelect(opt.id)}
+                    disabled={isSubmitted}
+                    className={getOptionStyle(opt.id)}
+                  >
+                    <div className={`
+                      w-7 h-7 rounded-xl border-2 flex items-center justify-center text-[11px] font-black flex-shrink-0 transition-all
+                      ${!isSubmitted && isSelected ? 'border-green-500 text-white bg-green-500' : 'border-zinc-700 text-zinc-500 bg-zinc-950'}
+                      ${isSubmitted && isCorrectAnswer ? 'border-emerald-500 bg-emerald-500 text-white shadow-lg' : ''}
+                      ${isSubmitted && isSelected && !isCorrectAnswer ? 'border-red-500 bg-red-500 text-white' : ''}
+                    `}>
+                      {isSubmitted && isCorrectAnswer ? <Check size={14} /> : 
+                       isSubmitted && isSelected && !isCorrectAnswer ? <X size={14} /> : 
+                       opt.id}
+                    </div>
+                    <span className="text-[15px] font-medium leading-normal">{opt.text}</span>
+                  </button>
+                );
+              })}
             </div>
 
             {isSubmitted && (
@@ -348,7 +381,7 @@ function App() {
             {!isSubmitted ? (
               <button
                 onClick={handleSubmit}
-                disabled={!selectedOption}
+                disabled={selectedOptions.length === 0}
                 className="bg-green-600 hover:bg-green-500 disabled:bg-zinc-800 disabled:text-zinc-600 text-white px-12 py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-green-900/20 transition-all active:scale-95"
               >
                 Check

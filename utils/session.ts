@@ -1,11 +1,12 @@
+
 import { Question } from '../types';
 
-const SESSION_KEY = 'databricks_prep_session';
+const SESSION_KEY = 'databricks_prep_session_v2'; // Bump version for schema change
 
 export interface QuizSession {
-  questionOrder: number[]; // Array of IDs
+  questionOrder: number[]; 
   currentIndex: number;
-  selectedOption: string | null;
+  selectedOptions: string[]; // Changed from selectedOption: string | null
   isSubmitted: boolean;
 }
 
@@ -28,13 +29,9 @@ export const clearSession = () => {
   localStorage.removeItem(SESSION_KEY);
 };
 
-// Helper to reconstruct the full question objects from the saved ID order
 export const restoreQuestionList = (allQuestions: Question[], savedOrder: number[]): Question[] => {
   const questionMap = new Map(allQuestions.map(q => [q.id, q]));
   const ordered = savedOrder.map(id => questionMap.get(id)).filter((q): q is Question => !!q);
-  
-  // If questions were added to code since last save, append them, or if lengths mismatch significantly, just return original
   if (ordered.length === 0) return allQuestions;
-  
   return ordered;
 };

@@ -4,13 +4,13 @@ export interface Question {
   topic: string;
   questionText: string;
   codeSnippet?: string;
-  image_url?: string; // Standardized snake_case
-  imageUrl?: string;  // Added for compatibility with user structure
+  image_url?: string;
+  imageUrl?: string;
   options: {
     id: string;
     text: string;
   }[];
-  correctAnswerId: string;
+  correctAnswerId: string | string[]; // Can be a single ID or an array of IDs
   explanation: string;
 }
 
